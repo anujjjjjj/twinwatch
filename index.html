@@ -1,0 +1,57 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Twinwatch — someone shipped a copy of your app. Take it down.</title>
+<meta name="description" content="Clone radar and takedown kit for indie apps and games. Evidence pack plus ready-to-file notices for App Store, Google Play, Steam, itch and GitHub.">
+<style>
+:root{--bg:#0b0c0e;--fg:#e8e8ea;--mut:#8b8f98;--acc:#7cf3c5;--line:#1d2026}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}
+.w{max-width:760px;margin:0 auto;padding:56px 22px}
+.logo{font-weight:700;letter-spacing:.02em}.logo b{color:var(--acc)}
+h1{font-size:clamp(34px,6vw,54px);line-height:1.08;margin:56px 0 18px;letter-spacing:-.02em}
+h2{font-size:22px;margin:56px 0 12px}p{color:#c9cbd1}.mut{color:var(--mut);font-size:14px}
+ul{padding-left:20px;color:#c9cbd1}li{margin:6px 0}
+form{display:flex;gap:8px;flex-wrap:wrap;margin:24px 0 8px}
+input[type=email],input[type=url]{flex:1 1 240px;background:#121418;border:1px solid var(--line);color:var(--fg);padding:13px 14px;border-radius:8px;font-size:15px}
+button{background:var(--acc);color:#04130d;border:0;padding:13px 18px;border-radius:8px;font-weight:700;cursor:pointer;font-size:15px}
+.card{border:1px solid var(--line);border-radius:12px;padding:22px;margin:16px 0;background:#0f1114}
+.price{font-size:34px;font-weight:700}.tag{display:inline-block;font-size:12px;border:1px solid var(--line);padding:2px 8px;border-radius:99px;color:var(--mut)}
+code{color:var(--acc)}#msg{min-height:22px;font-size:14px}
+footer{border-top:1px solid var(--line);margin-top:64px;padding-top:20px}
+</style></head><body><div class="w">
+<div class="logo">twin<b>watch</b></div>
+<h1>Someone shipped a copy of your app.<br>Get it taken down.</h1>
+<p>Twinwatch finds <strong>literal clones</strong> of your indie app or game, ones that reuse your name, icon, screenshots, assets or code. It assembles dated proof and hands you a notice already in the format each platform asks for. You review it and file it yourself.</p>
+<form id="f1" data-kind="scan"><input type="email" name="email" required placeholder="you@studio.dev"><input type="url" name="product" placeholder="Store / Steam / repo URL (optional)"><button>Get a free clone scan</button></form>
+<div id="msg" class="mut"></div>
+<p class="mut">We're building this now. Early sign-ups get a free scan of their product that we run by hand.</p>
+
+<h2>Where it works, and where it doesn't</h2>
+<p>Takedowns work when the copy is literal: same or confusingly similar name, your icon, your screenshots or trailer, your art and audio files, your code. Twinwatch focuses there. If someone rebuilt your idea from scratch, that is usually not copyright infringement, and we'll tell you so plainly instead of selling you a notice.</p>
+
+<h2>What you get</h2>
+<ul>
+<li><strong>Clone radar:</strong> App Store, Google Play, Steam, itch.io, GitHub (including fork networks) and npm, matched by name, icon, screenshots, store copy and code strings.</li>
+<li><strong>Evidence pack:</strong> timestamped screenshots, archived copies of listings, side-by-side comparisons, plus your proof of being first.</li>
+<li><strong>Notices ready to file:</strong> App Store content dispute, Google Play IP complaint, Steam IP complaint, GitHub DMCA under §512(c) with the per-repo list it requires, and host abuse reports.</li>
+<li><strong>Tracker:</strong> what was filed, when, and any counter-notice deadlines.</li>
+</ul>
+
+<div class="card"><span class="tag">For the clone you found today</span>
+<div class="price">$39 <span class="mut">one-off</span></div>
+<p><strong>Incident Kit</strong>: one clone, a full evidence pack, and every notice draft you need for the platforms it's listed on.</p>
+<form id="f2" data-kind="kit"><input type="email" name="email" required placeholder="you@studio.dev"><input type="url" name="product" placeholder="Link to the clone (optional)"><button>Reserve an Incident Kit</button></form>
+<p class="mut">No payment yet. We'll email you when the kit is ready to buy. Nothing is charged before then.</p></div>
+
+<h2>What we won't do</h2>
+<ul><li>File anything for you. A false takedown notice carries legal risk, so a human checks it and signs it every time.</li>
+<li>Promise outcomes. Platforms decide, and some are slow.</li>
+<li>Give legal advice. For trademark filings or disputes, talk to a lawyer.</li></ul>
+
+<footer class="mut">Twinwatch (working name) · early access · not legal advice · we only use your email to contact you about Twinwatch.</footer>
+</div>
+<script>
+document.querySelectorAll('form').forEach(f=>f.addEventListener('submit',async e=>{e.preventDefault();const m=document.getElementById('msg');const d=Object.fromEntries(new FormData(f));d.kind=f.dataset.kind;
+m.textContent='Sending…';if(f.id==='f2')m.scrollIntoView({behavior:'smooth',block:'center'});
+try{const r=await fetch('/api/signup',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(d)});
+if(!r.ok)throw 0;m.style.color='#7cf3c5';m.textContent=d.kind==='kit'?'Reserved. We\'ll email you when the kit is ready.':'You\'re on the list. We\'ll reach out about your free scan.';f.reset();}
+catch(_){m.style.color='#ff8080';m.textContent='Something went wrong. Please try again.';}}));
+</script></body></html>
